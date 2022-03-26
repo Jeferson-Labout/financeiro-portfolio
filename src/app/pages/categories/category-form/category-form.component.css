@@ -1,0 +1,17 @@
+.btn {
+  width: 75px;
+  height: 30px;
+  text-align: center;
+  float: right;
+
+  position: relative;
+
+  /* flex para alinhar conteúdo*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  padding: .3rem 1.5rem;
+
+}

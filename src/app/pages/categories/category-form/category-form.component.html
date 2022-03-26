@@ -1,0 +1,44 @@
+<app-bread-crumb
+  [items]="[{text: 'Categorias', link: '/categories'}, {text: pageTitle}]"
+></app-bread-crumb>
+
+<app-page-header
+  [page-title]="pageTitle"
+  button-text="Voltar"
+  button-link="/categories"
+  button-class="btn-danger"
+  button-icon='arrow_left'
+></app-page-header>
+
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+
+  <div class="card">
+    <div class="card-header">
+      Informações sobre a categoria
+    </div>
+
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+
+          <app-form-field-error [form-control]="resourceForm.get('name')"></app-form-field-error>
+        </div>
+
+        <div class="form-group col-md-8">
+          <label for="description">Descrição</label>
+          <input type="text" class="form-control" id="description" formControlName="description">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+
+  <button  class="btn btn-primary btn-sm-0 float-right ml-2 mt-1 " [disabled]="submittingForm || resourceForm.invalid" type="submit" >
+  <i class="material-icons  btn-sm-0">done_all</i> Salvar
+  </button>
+ 
+</form>

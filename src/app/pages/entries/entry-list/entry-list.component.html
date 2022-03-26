@@ -1,0 +1,102 @@
+<app-bread-crumb
+  [items]="[{text: 'Lançamentos'}]"
+></app-bread-crumb>
+
+<app-page-header
+  page-title="Lançamentos"
+  button-text=""
+  button-link="new"
+  button-class="btn-outline-success"
+  button-icon="add"
+></app-page-header>
+
+
+<div class="card">
+  <div class="card-header">
+    Pesquisa Por Mês
+  </div>
+
+  <div class="card-body">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="month">Mês</label>
+        <select #month name="month" id="month" class="form-control">
+          <option value="">Selecione um mês</option>
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-3">
+        <label for="year">Ano</label>
+        <select #year name="year" id="year" class="form-control">
+          <option value="">Selecione um ano</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+        </select>
+      </div>
+      <div class="form-row mt-4">
+        <div class="col-md ">
+          <button type="button" (click)="getByMonthAndYear()" class="btn-pesquisa btn-dark ">
+           Pesquisar
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr class="bg-secondary text-light">
+      <th>Lançamento</th>
+      <th>Categoria</th>
+      <th class="text-right">Valor R$</th>
+      <th class="text-center">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- [class.table-danger]="entry.paidText=='Pedente'" [class.table-success]="entry.paidText=='Pago'"-->
+    <tr  *ngFor="let entry of resources">
+      <td>
+        <strong>{{entry.name}}</strong><br>
+        <small class="text-success">{{entry.date}}</small><br>
+        <small *ngIf="entry.description">{{entry.description}}</small>
+      </td>
+      <td>
+        {{entry.category.name}}
+      </td>
+      <td class="text-right">
+        <strong [class.text-success]="entry.type == 'revenue'" [class.text-danger]="entry.type == 'expense'">
+          {{entry.amount |  currency: 'BRL':'':'1.2-2'}}
+        </strong>
+        <br>
+        <span *ngIf= "entry.paidText=='Pedente' "class="badge badge-pill badge-danger">{{entry.paidText}}</span>
+        <span *ngIf= "entry.paidText=='Pago' " class="badge badge-pill badge-success">{{entry.paidText}}</span>
+      </td>
+      <td class="text-center">
+        <a (click)="deleteResource(entry)" class="btn btn-link text-danger mr-2 mt-1 btn-right" tool>
+          <i class="material-icons" data-bs-toggle="tooltip" data-bs-placement="top" title="Remover Conta">delete</i>
+        </a>
+        <a [routerLink]="[entry.id, 'edit']" class="btn btn-link mr-2 mt-1  btn-right">
+          <i class="material-icons" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar Conta">edit</i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
